@@ -1,0 +1,215 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100vh;
+}
+main {
+    flex: 1;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.btn-contact {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.btn-contact:active {
+    background-color: #0056b3;
+}
+
+.nav-right a {
+    color: #333;
+    text-decoration: none;
+    font-size: 20px;
+    margin-left: 15px;
+}
+
+.main-header {
+    padding-block: 8%;
+    width: 100%;
+    background-image: url(../hasiera/img/fondo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+}
+
+.main-header h1 {
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px 1px 0 #000,
+         1px 1px 0 #000;
+}
+h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-top: 40px;
+}
+
+hr {
+    width: 100px;
+    margin: 40px auto;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto 40px;
+    padding: 0 20px;
+}
+
+/*Sprites*/
+.sprite{
+    background-image: url('../video_audio/sprite.jpg');
+    width: 400px;
+    height: 400px;
+    background-position: -240px 1600px;
+    margin: auto;
+}
+/* Contenedor principal para posicionar las flechas */
+.carrusel-contenedor {
+  position: relative;
+  max-width: 500px; /* Ancho máximo del carrusel */
+  margin: auto;
+}
+
+/* El carrusel en sí (donde ocurre el scroll) */
+.carrusel {
+  display: flex;
+  overflow-x: auto;       /* Permite scroll horizontal */
+  scroll-snap-type: x mandatory; /* MAGIA: Obliga a parar en cada elemento exacto */
+  scroll-behavior: smooth; /* Desplazamiento suave con JS */
+  gap: 10px;              /* Espacio entre tarjetas */
+  
+  /* Ocultar barra de scroll (estético) */
+  scrollbar-width: none; /* Firefox */
+}
+.carrusel::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
+/* Cada tarjeta individual */
+.tarjeta {
+  flex: 0 0 100%;         /* Ocupa el 100% del ancho del contenedor */
+  scroll-snap-align: center; /* Se alinea al centro al soltar */
+  background: #f4f4f4;
+  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tarjeta img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Estilo de los botones (flechas) */
+.flecha {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 10;
+  border-radius: 50%;
+}
+.flecha:hover { background-color: rgba(0,0,0,0.8); }
+.flecha-izquierda { left: 10px; }
+.flecha-derecha { right: 10px; }
+
+/* Estilos para la sección de video y música */
+
+.musika, .video-controls{
+    text-align: center;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+}
+button {
+    margin: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+#controls button{
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: #007bff 1px solid;
+    font-weight: bold;
+}
+#controls button:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    color: #007bff;
+    transform: translateY(-1px);
+}
+#controls button:active {
+    transform: translateY(1px);
+}
+.video-controls select{
+    width: 50%;
+    padding: 10px;
+    border-radius: 15px;
+    margin: auto;
+    font-size: 16px; 
+}
+.video-container {
+  width: 70%;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+@media (max-width: 768px) {
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+    .carrusel-contenedor {
+
+  max-width: 70%; /* Ancho máximo del carrusel */
+
+}
+    #controls{
+        grid-template-columns: 2fr;
+        max-width: 300px;
+        margin: auto;
+    }
+
+}

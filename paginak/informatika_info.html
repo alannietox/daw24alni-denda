@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Informatika Informazioa</title>
+    <link rel="stylesheet" href="informatika_info.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="nav-left">
+            <a href="../kontaktua" class="btn-contact">Kontaktua</a>
+        </div>
+        <div class="nav-right">
+            <a href="../hasiera/index.php" aria-label="Inicio">🏠</a>
+            <a href="#" aria-label="Perfil">👤</a>
+        </div>
+    </header>
+    <main>
+
+        <article class="main-header">
+            <h1>Informatika Informazioa</h1>
+        </article>
+        <hr>
+        <h1>Sprite</h1>
+        <div class="sprite">
+        </div>
+        <hr>
+        <h1>Irudi galeria</h1>
+        <div class="carrusel-contenedor">
+            <button class="flecha flecha-izquierda" onclick="mover(-1)">&#10094;</button>
+
+            <div class="carrusel" id="carrusel">
+                <div class="tarjeta">
+                    <img src="../hasiera/img/kategoria1.png" alt="Imagen 1">
+                    <h3>CPU</h3>
+                </div>
+                <div class="tarjeta">
+                    <img src="../hasiera/img/kategoria2.png" alt="Imagen 2">
+                    <h3>GPU</h3>
+                </div>
+                <div class="tarjeta">
+                    <img src="../hasiera/img/kategoria3.png" alt="Imagen 3">
+                    <h3>RAM</h3>
+                </div>
+            </div>
+
+            <button class="flecha flecha-derecha" onclick="mover(1)">&#10095;</button>
+        </div>
+
+        <hr>
+        <h1>Musika</h1>
+
+        <nav class="info-grid musika">
+            <div id="controls">
+                <button id="play">Play</button>
+                <button id="stop">Stop</button>
+                <button id="rw">&lt;&lt;</button>
+                <button id="ff">&gt;&gt;</button>
+            </div>
+
+            <div id="audioBox">
+                <audio id="player" controls></audio>
+            </div>
+            <div id="nowPlaying">Entzuten ari zara: <span id="songTitle">—</span></div>
+        </nav>
+
+        <hr>
+
+        <h1>Azalpen bideoak</h1>
+        <nav class="info-grid video-controls">
+            <div id="controls">
+                <button onclick="video.play()">Play</button>
+                <button onclick="video.pause()">Pause</button>
+                <button onclick="stopVideo()">Stop</button>
+                <button onclick="video.muted = !video.muted">Mute</button>
+                <button onclick="video.volume = Math.max(0, video.volume - 0.1)">Vol -</button>
+                <button onclick="video.volume = Math.min(1, video.volume + 0.1)">Vol +</button>
+            </div>
+
+            <select id="lista" onchange="cambiarVideo()">
+                <option value="../video_audio/video_cpu.mp4">CPU</option>
+                <option value="../video_audio/video_gpu.mp4">GPU</option>
+                <option value="../video_audio/video_ram.mp4">RAM</option>
+            </select>
+        </nav>
+        <div class="video-container">
+            <video id="vid" controls>
+                <source src="../video_audio/video_cpu.mp4" type="video/mp4">
+            </video>
+        </div>
+    </main>
+    <script>
+        const video = document.getElementById("vid");
+
+        function cambiarVideo() {
+            const nuevo = document.getElementById("lista").value;
+            video.src = nuevo;
+            video.play();
+        }
+
+        function stopVideo() {
+            video.pause();
+            video.currentTime = 0;
+        }
+
+        const songs = [
+            { title: "Vandali", file: "../video_audio/audio1.mp3" },
+            { title: "Hundred Proof", file: "../video_audio/audio2.mp3" },
+            { title: "Hypnotized", file: "../video_audio/audio3.mp3" }
+        ];
+
+        let index = 0;
+        const audio = document.getElementById("player");
+        const titleBox = document.getElementById("songTitle");
+
+        function loadSong(i) {
+            audio.src = songs[i].file;
+            titleBox.textContent = songs[i].title;
+        }
+
+        loadSong(index);
+
+        document.getElementById("play").onclick = () => {
+            audio.play();
+        };
+
+        document.getElementById("stop").onclick = () => {
+            audio.pause();
+            audio.currentTime = 0;
+        };
+
+        document.getElementById("ff").onclick = () => {
+            index = (index + 1) % songs.length;
+            loadSong(index);
+            audio.play();
+        };
+
+        document.getElementById("rw").onclick = () => {
+            index = (index - 1 + songs.length) % songs.length;
+            loadSong(index);
+            audio.play();
+        };
+
+        function mover(direccion) {
+            const carrusel = document.getElementById('carrusel');
+            const anchoTarjeta = carrusel.offsetWidth; // Mide el ancho visible
+
+            // Mueve el scroll: derecha (positivo) o izquierda (negativo)
+            carrusel.scrollBy({
+                left: direccion * anchoTarjeta,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+</body>
+
+</html>

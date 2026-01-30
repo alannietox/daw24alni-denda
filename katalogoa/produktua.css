@@ -1,0 +1,133 @@
+/* === Global === */
+html, body {
+    height: 100%;
+    min-height: 100%;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #333;
+}
+
+/* === Navbar === */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+.btn-contact {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.btn-contact:active {
+    background-color: #0056b3;
+}
+.nav-right a {
+    color: #333;
+    text-decoration: none;
+    font-size: 20px;
+    margin-left: 15px;
+}
+
+/* === Page Titles === */
+h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-top: 40px;
+}
+
+main>hr{
+    width: 100px;
+    margin: 40px auto;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+/* === Produktua Layout === */
+.produktua-layout {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    gap: 40px;
+    align-items: flex-start;
+}
+.produktua-img-container {
+    flex-shrink: 0;
+    width: 40%;
+    max-width: 450px;
+}
+.produktua-img-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.produktua-info {
+    flex-grow: 1;
+}
+.marka-modeloa {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #333;
+}
+.gama-info {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* === Pricing === */
+.prezio-originala {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #888;
+    text-decoration: line-through;
+    margin-bottom: 5px;
+}
+.prezio-finala {
+    font-size: 2em;
+    font-weight: bold;
+    color: green;
+}
+.deskontu-etiketa {
+    display: inline-block;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.btn-erosketa{
+    display: block; 
+    width: 250px; 
+    text-align: center; 
+    background-color: #007bff; 
+    color: white; 
+    padding: 15px 0; 
+    border-radius: 6px; 
+    text-decoration: none; 
+    font-weight: bold; 
+    margin-top: 30px;
+}
+
+/* === Responsive === */
+@media (max-width: 900px) {
+    .produktua-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+    .produktua-img-container {
+        width: 80%;
+        max-width: 100%;
+    }
+}

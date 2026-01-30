@@ -1,0 +1,133 @@
+/* saskia.css */
+
+/* 1. Ajuste de la rejilla para el carrito */
+/* Sobrescribimos la grid de 3 columnas para que sea de 1 sola columna ancha en la página del carrito */
+.saskia-grid {
+    grid-template-columns: 1fr;
+    max-width: 1000px;
+    /* Un poco más estrecho para que se lea mejor */
+}
+
+/* 2. Ajuste de la tarjeta */
+.saskia-card {
+    text-align: left;
+    /* info-card tiene text-align: center por defecto, aquí lo queremos a la izquierda */
+    cursor: default;
+    /* Quitamos el cursor de mano si no es un enlace toda la tarjeta */
+}
+
+/* Quitamos el efecto de hover que eleva la tarjeta, porque en una tabla es molesto */
+.saskia-card:hover {
+    transform: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    /* Mantenemos la sombra original */
+}
+
+/* 3. Estilos de la Tabla (Usando tus fuentes) */
+.saskia-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.saskia-table th {
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+    /* Mismo color que tu <hr> */
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.saskia-table td {
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    /* Mismo borde que info-card */
+    vertical-align: middle;
+}
+
+/* 4. Botones Personalizados (Basados en .btn-contact) */
+/* Contenedor para separar los botones de arriba */
+.saskia-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Variante Roja para "Hustu Saskia" */
+.btn-red {
+    background-color: #dc3545;
+    /* Rojo estándar, combina bien con tus alertas */
+    border: none;
+    cursor: pointer;
+}
+
+.btn-red:hover,
+.btn-red:active {
+    background-color: #c82333;
+}
+
+/*Guztira*/
+.guztira {
+    margin-top: 30px;
+    text-align: right;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+.guztira-title {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+/* Variante Verde para "Erosketarekin Jarraitu" */
+/* Usa el mismo verde que tu clase .info-prezioa (#28a745) */
+.btn-green {
+    background-color: #007bff;
+    font-size: 16px;
+    /* Un poco más grande para destacar */
+    padding: 12px 25px;
+}
+
+.btn-green:hover,
+.btn-green:active {
+    background-color: #0056b3;
+}
+
+/*Saskia*/
+.btn-delete {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.btn-delete:hover {
+    background-color: #cc0000;
+}
+
+.input-kopurua {
+    width: 60px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Responsive para la tabla */
+@media (max-width: 768px) {
+    .saskia-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* En móviles, permitimos scroll horizontal en la tabla si es necesario */
+    .card-info {
+        overflow-x: auto;
+    }
+}
