@@ -1,6 +1,6 @@
 <?php
 namespace com\leartik\alni\eskariak;
-
+use com\leartik\alni\bezeroak\Bezeroa;
 class Eskaria
 {
     private $id;
@@ -11,7 +11,7 @@ class Eskaria
     public function __construct($id = 0, $data = null, $bezeroa = [], $detaileak = []) {
         $this->id = $id;
         $this->data = $data;
-        $this->bezeroa = $bezeroa;
+        $this->bezeroa = new Bezeroa();
         $this->detaileak = $detaileak;
     }
     // Métodos Getter

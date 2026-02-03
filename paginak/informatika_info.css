@@ -85,7 +85,7 @@ hr {
 
 /*Sprites*/
 .sprite{
-    background-image: url('../video_audio/sprite.jpg');
+    background-image: url('./video_audio/sprite.jpg');
     width: 400px;
     height: 400px;
     background-position: -240px 1600px;

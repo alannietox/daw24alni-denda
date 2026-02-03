@@ -74,6 +74,21 @@
                         <input type="text" class="form-input" id="helbidea" name="helbidea" placeholder="Kalea, Zenbakia, Herria..." required>
                     </div>
 
+                    <div class="form-group">
+                        <label for="herria" class="form-label">Herria:</label>
+                        <input type="text" class="form-input" id="herria" name="herria" placeholder="Herria..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="postakodea" class="form-label">Postakodea:</label>
+                        <input type="text" class="form-input" id="postakodea" name="postakodea" placeholder="Postakodea..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="probintzia" class="form-label">Probintzia:</label>
+                        <input type="text" class="form-input" id="probintzia" name="probintzia" placeholder="Probintzia..." required>
+                    </div>
+
                     <div class="saskia-actions" style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; border-bottom: none;">
                         <a href="index.php" class="info-link" style="font-size: 16px;">Atzera Saskira</a>
                         <button type="submit" class="btn-contact btn-green" style="border: none; cursor: pointer;">

@@ -28,7 +28,7 @@ class MezuaDB
                 $mezua->setSortzeData($erregistroa['sortze_data']);
                 $mezuak[] = $mezua;
             }
-
+            
             return $mezuak;
 
         } catch (\Exception $e) {

@@ -31,12 +31,24 @@
                 
                 <div style="display: flex; flex-wrap: wrap; margin-bottom: 30px;">
                     <div style="flex: 1; min-width: 250px;">
-                        <p class="info-description"><strong>Izena:</strong> <?php echo htmlspecialchars($bezeroa['izena']); ?></p>
-                        <p class="info-description"><strong>Abizena:</strong> <?php echo htmlspecialchars($bezeroa['abizena']); ?></p>
+                        <p class="info-description">
+                            <strong>Izena:</strong> 
+                            <?php echo htmlspecialchars($eskaria->getBezeroa()->getIzena()); ?>
+                        </p>
+                        <p class="info-description">
+                            <strong>Abizena:</strong> 
+                            <?php echo htmlspecialchars($eskaria->getBezeroa()->getAbizena()); ?>
+                        </p>
                     </div>
                     <div style="flex: 1; min-width: 250px;">
-                        <p class="info-description"><strong>Email:</strong> <?php echo htmlspecialchars($bezeroa['email']); ?></p>
-                        <p class="info-description"><strong>Helbidea:</strong> <?php echo htmlspecialchars($bezeroa['helbidea']); ?></p>
+                        <p class="info-description">
+                            <strong>Email:</strong> 
+                            <?php echo htmlspecialchars($eskaria->getBezeroa()->getEmaila()); ?>
+                        </p>
+                        <p class="info-description">
+                            <strong>Helbidea:</strong> 
+                            <?php echo htmlspecialchars($eskaria->getBezeroa()->getHelbidea()); ?>
+                        </p>
                     </div>
                 </div>
 
@@ -54,27 +66,40 @@
                     </thead>
                     <tbody>
                         <?php 
-                        // Recuperar datos antes de borrar la sesión
-                        $detaileak = $saskia->getDetaileak();
+                        // Usamos los detalles guardados en el objeto Eskaria, no en la sesión antigua
+                        $detaileak = $eskaria->getDetaileak();
                         $totala = 0;
 
-                        foreach ($detaileak as $det):
-                            $prod = $det->getProduktua();
-                            
-                            // Prezio kalkulua
-                            $prezioa = $prod->getPrezioa();
-                            if(method_exists($prod, 'getDeskontua') && $prod->getDeskontua() > 0){
-                                $prezioa = $prezioa * (1 - ($prod->getDeskontua()/100));
-                            }
-                            
-                            $kopurua = $det->getKopurua();
-                            $subtotala = $prezioa * $kopurua;
-                            $totala += $subtotala;
+                        if (!empty($detaileak)) {
+                            foreach ($detaileak as $det):
+                                $prod = $det->getProduktua();
+                                
+                                // Si $prod es solo un ID (por cómo se guardó), necesitaríamos cargarlo.
+                                // Pero como viene del carrito de sesión actual, debería ser el objeto completo.
+                                
+                                // Prezio kalkulua
+                                $prezioa = 0;
+                                // Verificamos si es objeto para evitar errores
+                                if (is_object($prod)) {
+                                    $prezioa = $prod->getPrezioa();
+                                    if(method_exists($prod, 'getDeskontua') && $prod->getDeskontua() > 0){
+                                        $prezioa = $prezioa * (1 - ($prod->getDeskontua()/100));
+                                    }
+                                    $izenaProd = $prod->getMarka() . " " . $prod->getModeloa();
+                                } else {
+                                    // Fallback si por alguna razón solo tenemos ID
+                                    $izenaProd = "Produktua ID: " . $prod;
+                                    $prezioa = $det->getPrezioa();
+                                }
+                                
+                                $kopurua = $det->getKopurua();
+                                $subtotala = $prezioa * $kopurua;
+                                $totala += $subtotala;
                         ?>
                         <tr>
                             <td>
                                 <span class="info-name" style="font-size: 15px; margin:0;">
-                                    <?php echo htmlspecialchars($prod->getMarka() . " " . $prod->getModeloa()); ?>
+                                    <?php echo htmlspecialchars($izenaProd); ?>
                                 </span>
                             </td>
                             <td class="info-description" style="text-align: center;"><?php echo $kopurua; ?></td>
@@ -82,7 +107,12 @@
                                 <?php echo number_format($subtotala, 2, ',', '.'); ?> €
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php 
+                            endforeach; 
+                        } else {
+                            echo "<tr><td colspan='3'>Ez dago produkturik eskarian.</td></tr>";
+                        }
+                        ?>
                         
                         <tr>
                             <td colspan="2" style="text-align: right; padding-top: 20px; border-bottom: none;">
@@ -96,10 +126,6 @@
                 </table>
                 
                 <div style="text-align: center; margin-top: 40px;">
-                    <?php 
-                        // Lógica original: vaciar saskia
-                        $_SESSION['saskia'] = new com\leartik\alni\saskiak\Saskia();
-                    ?>
                     <a href="../hasiera" class="btn-contact" style="font-size: 16px; padding: 12px 25px;">Itzuli Hasierara</a>
                 </div>
 
