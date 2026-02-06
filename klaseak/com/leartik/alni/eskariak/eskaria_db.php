@@ -49,6 +49,7 @@ class EskariaDB
         $eskaria = new Eskaria();
         $eskaria->setId($row['id']);
         $eskaria->setData($row['data']);
+        $eskaria->setEgoera($row['egoera']);
         
         // 3. Meter el objeto Bezeroa DENTRO de Eskaria
         $eskaria->setBezeroa($bezeroa);
@@ -131,8 +132,8 @@ class EskariaDB
             $bezeroa = method_exists($eskaria, 'getBezeroa') ? $eskaria->getBezeroa() : $eskaria->bezeroa;
 
             // 2. Insertamos usando los GETTERS de Bezeroa
-            $sql = "INSERT INTO eskariak (izena, abizena, helbidea, herria, postakodea, probintzia, emaila, data) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO eskariak (izena, abizena, helbidea, herria, postakodea, probintzia, emaila, data, egoera) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             $stmt = $db->prepare($sql);
             
@@ -148,7 +149,8 @@ class EskariaDB
                 $bezeroa->getPostakodea(), // Usamos Getter de Bezeroa
                 $bezeroa->getProbintzia(), // Usamos Getter de Bezeroa
                 $bezeroa->getEmaila(),     // Usamos Getter de Bezeroa
-                $fecha
+                $fecha,
+                $eskaria->getEgoera() // Usamos Getter de Eskaria
             ]);
 
             $lastId = $db->lastInsertId();
@@ -181,6 +183,57 @@ class EskariaDB
             $db->rollBack();
             // Para depurar:
             echo "Error Insert: " . $e->getMessage();
+            return 0;
+        }
+    }
+    /**
+     * Actualiza únicamente el estado (egoera) de un pedido específico.
+     * * @param int $id El ID del pedido a actualizar.
+     * @param string $egoera El nuevo estado (ej: "Bidalita", "Prestatzen", "Entregatuta").
+     * @return int Devuelve 1 si ha ido bien, 0 si falla.
+     */
+    public static function updateEskaria($id, $egoera)
+    {
+        $db = self::getConnection();
+        if (!$db) return 0;
+
+        try {
+            // Sentencia SQL específica solo para el campo 'egoera'
+            $sql = "UPDATE eskariak SET egoera = ? WHERE id = ?";
+            
+            $stmt = $db->prepare($sql);
+            
+            // Pasamos los parámetros en orden: primero el valor nuevo, luego el ID de la condición
+            $stmt->execute([$egoera, $id]);
+
+            // Opcional: Podrías usar $stmt->rowCount() si quieres verificar 
+            // que realmente se modificó alguna fila (que el ID existía).
+            // De momento devolvemos 1 indicando que la consulta se ejecutó sin errores.
+            return 1;
+
+        } catch (PDOException $e) {
+            // Si quieres ver el error mientras desarrollas:
+            // echo "Error Update: " . $e->getMessage();
+            return 0;
+        }
+    }
+    /**
+     * Elimina un pedido y todos sus detalles asociados.
+     * @param int $id El ID del pedido a eliminar.
+     * @return int Devuelve 1 si se eliminó correctamente, 0 si hubo fallo.
+     */
+    public static function deleteEskaria($id)
+    {
+        try {
+            $db = new PDO(self::getDbPath());
+
+            $stmt = $db->prepare("DELETE FROM eskariak WHERE id = ?");
+            $emaitza = $stmt->execute([$id]);
+
+            return $emaitza ? $stmt->rowCount() : 0;
+
+        } catch (\Exception $e) {
+            echo "<p>Salbuspena (DeleteEskaria): " . $e->getMessage() . "</p>\n";
             return 0;
         }
     }

@@ -34,6 +34,7 @@ if ($admin == true) {
             $alerta = "* Ezabatzeko mezuaren ID-a ez da zuzena edo falta da *";
             // Variables vacías para evitar errores en la vista
             $izena = "";
+            $abizena = "";
             $email = "";
             $gorputza = "";
             $erantzuna = "";
@@ -51,6 +52,7 @@ if ($admin == true) {
             if ($mezua) {
                 // Recuperamos datos para mostrarlos antes de borrar
                 $izena = $mezua->getIzena();
+                $abizena = $mezua->getAbizena();
                 $email = $mezua->getEmail();
                 $gorputza = $mezua->getGorputza();
                 $erantzuna = $mezua->getErantzuna();

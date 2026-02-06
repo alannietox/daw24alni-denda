@@ -6,6 +6,10 @@ require_once __DIR__ . '/../klaseak/com/leartik/alni/kategoriak/kategoria.php';
 require_once __DIR__ . '/../klaseak/com/leartik/alni/kategoriak/kategoria_db.php';
 require_once __DIR__ . '/../klaseak/com/leartik/alni/mezuak/mezua.php';
 require_once __DIR__ . '/../klaseak/com/leartik/alni/mezuak/mezua_db.php';
+require_once __DIR__ . '/../klaseak/com/leartik/alni/eskariak/eskaria.php';
+require_once __DIR__ . '/../klaseak/com/leartik/alni/eskariak/eskaria_db.php';
+require_once __DIR__ . '/../klaseak/com/leartik/alni/bezeroak/bezeroa.php';
+require_once __DIR__ . '/../klaseak/com/leartik/alni/detaileak/detailea.php';
 
 use com\leartik\alni\kategoriak\Kategoria;
 use com\leartik\alni\kategoriak\KategoriaDB;
@@ -13,6 +17,10 @@ use com\leartik\alni\produktuak\Produktua;
 use com\leartik\alni\produktuak\ProduktuaDB;
 use com\leartik\alni\mezuak\Mezua;
 use com\leartik\alni\mezuak\MezuaDB;
+use com\leartik\alni\eskariak\Eskaria;
+use com\leartik\alni\eskariak\EskariaDB;
+use com\leartik\alni\bezeroak\Bezeroa;
+use com\leartik\alni\detaileak\Detailea;
 
 
 // administrazio gunean sartzeko baldintzak egiaztatu
@@ -45,6 +53,8 @@ if ($admin == true) {
     $mezuak = MezuaDB::selectMezuak();
     include('mezuak_erakutsi.php');
 
+    $eskariak = EskariaDB::selectEskariak();
+    include('eskariak_erakutsi.php');
     
 } else {
 

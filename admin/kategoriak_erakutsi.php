@@ -10,10 +10,15 @@
     <ul>
         <?php for ($i = 0; $i < count($kategoriak); $i++) { ?>
             <li>
-                <?php echo $kategoriak[$i]->getIzena() ?> 
+                <p><strong>ID:</strong>
+                <?php echo $kategoriak[$i]->getId() ?>
+                <strong>/ Izena:</strong>
+                <?php echo $kategoriak[$i]->getIzena() ?>
+                <strong>/ Laburpena:</strong>
                 <?php echo $kategoriak[$i]->getLaburpena() ?>
                 [<a href="kategori_aldatu/?id_kategoria=<?php echo $kategoriak[$i]->getId() ?>">aldatu</a>]
                 [<a href="kategori_ezabatu/?id_kategoria=<?php echo $kategoriak[$i]->getId() ?>">ezabatu</a>]
+                </p>
             </li>
         <?php } ?>
     </ul>

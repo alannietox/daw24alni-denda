@@ -20,6 +20,10 @@
             <td><?php echo $izena ?></td>
         </tr>
         <tr>
+            <td align="right">Abizena:</td>
+            <td><?php echo $abizena ?></td>
+        </tr>
+        <tr>
             <td align="right">Email:</td>
             <td><?php echo $email ?></td>
         </tr>

@@ -3,19 +3,19 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Mezuak - Aldatzea</title>
+    <title>Eskariak - Aldatzea</title>
 </head>
 
 <body>
     <h1>Administrazio gunea</h1>
     <p><a href="..">Hasiera</a></p>
 
-    <h2>Mezua Aldatu</h2>
+    <h2>Eskaria Aldatu</h2>
 
     <p style="color:red;"><?php echo $alerta; ?></p>
 
     <form method="post" action="index.php">
-        <input type="hidden" name="id" value="<?php echo htmlspecialchars($id) ?>">
+        <input type="hidden" name="id" value="<?php echo htmlspecialchars((string)($id ?? '')) ?>">
 
         <table cellspacing="5" cellpadding="5" border="1">
                 <tr>
@@ -27,17 +27,29 @@
                     <td><?php echo $abizena ?></td>
                 </tr>
                 <tr>
+                    <td align="right">Helbidea:</td>
+                    <td><?php echo $helbidea ?></td>
+                </tr>
+                <tr>
+                    <td align="right">Herria:</td>
+                    <td><?php echo $herria ?></td>
+                </tr>
+                <tr>
+                    <td align="right">Postakodea:</td>
+                    <td><?php echo $postakodea ?></td>
+                </tr>
+                <tr>
+                    <td align="right">Probintzia:</td>
+                    <td><?php echo $probintzia ?></td>
+                </tr>
+                <tr>
                     <td align="right">Email:</td>
                     <td><?php echo $email ?></td>
                 </tr>
                 <tr>
-                    <td align="right">Mezua:</td>
-                    <td><?php echo $gorputza ?></td>
-                </tr>
-                <tr>
-                    <td align="right">Erantzuna:</td>
+                    <td align="right">Egoera:</td>
                     <td>
-                        <input type="checkbox" name="erantzuna" value="1" <?= (!empty($erantzuna) && $erantzuna == 1) ? 'checked' : '' ?>>
+                        <input type="checkbox" name="egoera" value="1" <?= (!empty($egoera) && $egoera == 1) ? 'checked' : '' ?>>
                     </td>
                 </tr>
                 <tr>

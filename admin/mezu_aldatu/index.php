@@ -21,16 +21,18 @@ if ($admin == true) {
         $id = isset($_POST['id']) ? $_POST['id'] : null;
 
         $izena = $_POST['izena'];
+        $abizena = $_POST['abizena'];
         $email = $_POST['email'];
         $gorputza = $_POST['gorputza'];
         $erantzuna = isset($_POST['erantzuna']) ? 1 : 0; // Checkbox
 
         // Validación
-        if (strlen($izena) > 0 && strlen($email) > 0 && strlen($gorputza) > 0 && is_numeric($id) && $id > 0) {
+        if (strlen($izena) > 0 && strlen($abizena) > 0 && strlen($email) > 0 && strlen($gorputza) > 0 && is_numeric($id) && $id > 0) {
 
             $mezua = new Mezua();
             $mezua->setId($id);
             $mezua->setIzena($izena);
+            $mezua->setAbizena($abizena);
             $mezua->setEmail($email);
             $mezua->setGorputza($gorputza);
             $mezua->setErantzuna($erantzuna);
@@ -59,6 +61,7 @@ if ($admin == true) {
         if ($mezua) {
             $id = $mezua->getId();
             $izena = $mezua->getIzena();
+            $abizena = $mezua->getAbizena();
             $email = $mezua->getEmail();
             $gorputza = $mezua->getGorputza();
             $erantzuna = $mezua->getErantzuna();

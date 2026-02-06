@@ -9,10 +9,16 @@
     <ul>
         <?php for ($i = 0; $i < count($produktuak); $i++) { ?>
             <li>
+                <p>
+                <strong>ID:</strong>
+                <?php echo $produktuak[$i]->getId() ?>
+                <strong>/ Marka:</strong>
                 <?php echo $produktuak[$i]->getMarka() ?> 
+                <strong>/ Modeloa:</strong>
                 <?php echo $produktuak[$i]->getModeloa() ?>
                 [<a href="produktu_aldatu/?id=<?php echo $produktuak[$i]->getId() ?>">aldatu</a>]
                 [<a href="produktu_ezabatu/?id=<?php echo $produktuak[$i]->getId() ?>">ezabatu</a>]
+                </p>
             </li>
         <?php } ?>
     </ul>

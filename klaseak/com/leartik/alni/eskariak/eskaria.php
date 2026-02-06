@@ -7,12 +7,14 @@ class Eskaria
     private $data;
     private $bezeroa;
     private $detaileak;
+    private $egoera;
 
-    public function __construct($id = 0, $data = null, $bezeroa = [], $detaileak = []) {
+    public function __construct($id = 0, $data = null, $bezeroa = [], $detaileak = [], $egoera = 0) {
         $this->id = $id;
         $this->data = $data;
         $this->bezeroa = new Bezeroa();
         $this->detaileak = $detaileak;
+        $this->egoera = $egoera;
     }
     // Métodos Getter
     public function getId() {
@@ -31,6 +33,10 @@ class Eskaria
         return $this->detaileak;
     }
 
+    public function getEgoera() {
+        return $this->egoera;
+    }
+
     // Métodos Setter
     public function setId($id) {
         $this->id = $id;
@@ -46,6 +52,9 @@ class Eskaria
 
     public function setDetaileak($detaileak) {
         $this->detaileak = $detaileak;
+    }
+    public function setEgoera($egoera) {
+        $this->egoera = $egoera;
     }
 }
 ?>
