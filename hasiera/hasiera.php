@@ -5,13 +5,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasiera - PcZone</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .search-input {
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            width: 250px;
+        }
+
+        #lista-productos {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            width: 270px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-top: none;
+            z-index: 1000;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            color: black; /* Asegurar texto negro */
+            text-align: left;
+        }
+
+        #lista-productos li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        #lista-productos li:hover {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
     <header class="navbar">
         <div class="nav-left">
             <a href="../kontaktua" class="btn-contact">Kontaktua</a>
+        </div>
+        <div class="search-wrapper">
+                <input type="text" id="buscador" class="search-input" placeholder="Bilatu modeloa..." autocomplete="off">
+                <ul id="lista-productos"></ul>
         </div>
         <div class="nav-right">
             <a href="#" aria-label="Perfil de Usuario">👤</a>
@@ -43,9 +84,9 @@
 
             <article class="info-card">
                 <div class="card-info">
-                    <h3 class="info-name">Gure Buruz</h3>
+                    <h3 class="info-name">ChatBot</h3>
                     <p class="info-description">Ezagutu PcZone-ren historia, gure komunitate teknologikoarekiko dugun konpromisoa.</p>
-                    <a href="../paginak/gure_buruz.html" class="info-link">Gure Taldea Esagutu</a>
+                    <a href="../chatbot/index.php" class="info-link">ChatBot Erabili</a>
                 </div>
             </article>
         </nav>
@@ -118,6 +159,59 @@
         <?php endif; ?>
 
     </main>
+    <script>
+        $(document).ready(function() {
+            // 1. Recibimos los datos (Ahora son objetos {id: 1, nombre: "..."})
+            const todosLosModelos = <?php echo json_encode($listaModelos ?? []); ?>;
+
+            console.log("Productos cargados:", todosLosModelos.length);
+
+            // 2. DETECTAR ESCRITURA
+            $('#buscador').on('input', function() {
+                let texto = $(this).val().toLowerCase();
+                let html = '';
+
+                if (texto === '') {
+                    $('#lista-productos').hide();
+                    return;
+                }
+
+                // Filtramos por el campo 'nombre'
+                let filtrados = todosLosModelos.filter(function(item) {
+                    return item.nombre && item.nombre.toLowerCase().includes(texto);
+                });
+
+                // Creamos los <li> GUARDANDO EL ID en un atributo data-id
+                if(filtrados.length > 0){
+                    $.each(filtrados, function(index, item) {
+                        // Aquí guardamos el ID oculto en el elemento
+                        html += '<li data-id="' + item.id + '">' + item.nombre + '</li>';
+                    });
+                    $('#lista-productos').html(html).show();
+                } else {
+                    $('#lista-productos').hide();
+                }
+            });
+
+            // 3. SELECCIONAR AL HACER CLICK (Aquí ocurre la magia)
+            $(document).on('click', '#lista-productos li', function() {
+                // Obtenemos el ID que guardamos antes
+                let idProducto = $(this).data('id');
+                
+                // Redirigimos a la página de catálogo con el ID
+                if (idProducto) {
+                    window.location.href = "../katalogoa/index.php?id_produktua=" + idProducto;
+                }
+            });
+
+            // Cerrar al hacer clic fuera
+            $(document).click(function(e) {
+                if (!$(e.target).closest('.search-wrapper').length) {
+                    $('#lista-productos').hide();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

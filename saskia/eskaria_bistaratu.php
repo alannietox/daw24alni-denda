@@ -39,15 +39,24 @@
                             <strong>Abizena:</strong> 
                             <?php echo htmlspecialchars($eskaria->getBezeroa()->getAbizena()); ?>
                         </p>
-                    </div>
-                    <div style="flex: 1; min-width: 250px;">
                         <p class="info-description">
                             <strong>Email:</strong> 
                             <?php echo htmlspecialchars($eskaria->getBezeroa()->getEmaila()); ?>
                         </p>
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        
                         <p class="info-description">
                             <strong>Helbidea:</strong> 
                             <?php echo htmlspecialchars($eskaria->getBezeroa()->getHelbidea()); ?>
+                        </p>
+                        <p class="info-description">
+                            <strong>Postakodea:</strong> 
+                            <?php echo htmlspecialchars($eskaria->getBezeroa()->getPostaKodea()); ?>
+                        </p>
+                        <p class="info-description">
+                            <strong>Probintzia:</strong> 
+                            <?php echo htmlspecialchars($eskaria->getBezeroa()->getProbintzia()); ?>
                         </p>
                     </div>
                 </div>

@@ -1,5 +1,22 @@
 <?php
 require('../klaseak/com/leartik/alni/produktuak/produktua.php');
+
+$listaModelos = [];
+try {
+    $dbSearch = new PDO('sqlite:../produktuak.db');
+    // CAMBIO 1: Seleccionamos id Y modeloa
+    $stmtSearch = $dbSearch->query("SELECT id, modeloa FROM produktuak");
+    
+    while ($row = $stmtSearch->fetch(PDO::FETCH_ASSOC)) {
+        // CAMBIO 2: Guardamos un array con ambos datos
+        $listaModelos[] = [
+            'id' => $row['id'],
+            'nombre' => $row['modeloa']
+        ];
+    }
+} catch (PDOException $e) {
+    // Error silencioso
+}
 /*
 $nobedadeak = ProduktuaDB::selectProduktuakNobedadea();
 $dbError = null;
