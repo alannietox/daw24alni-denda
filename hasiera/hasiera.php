@@ -63,6 +63,14 @@
             <h1>PcZone</h1>
         </article>
         <hr>
+        <article class="info-card">
+                <div class="card-info">
+                    <h3 class="info-name">Albisteak</h3>
+                    <p class="info-description">Albisteak ikusi eta eguneratzeak.</p>
+                    <a href="../albisteak/index.php" class="info-link">Ikusi Albisteak</a>
+                </div>
+        </article>
+        <hr>
 
         <nav class="info-grid">
 

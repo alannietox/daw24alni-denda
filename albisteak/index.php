@@ -1,6 +1,6 @@
 <?php
 
-$api_url = "http://localhost/web_garapena_zerbitzari_ingurunean/zerbitzari_06_01/albisteak";
+$api_url = "http://localhost/0erronka/api/albisteak/index.php";
 
 $albisteak = [];
 
