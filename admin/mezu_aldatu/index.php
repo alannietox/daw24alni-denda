@@ -19,36 +19,50 @@ if ($admin == true) {
     // 1. SI SE PULSA EL BOTÓN GORDE (POST)
     if (isset($_POST['gorde'])) {
         $id = isset($_POST['id']) ? $_POST['id'] : null;
-
-        $izena = $_POST['izena'];
-        $abizena = $_POST['abizena'];
-        $email = $_POST['email'];
-        $gorputza = $_POST['gorputza'];
         $erantzuna = isset($_POST['erantzuna']) ? 1 : 0; // Checkbox
 
-        // Validación
-        if (strlen($izena) > 0 && strlen($abizena) > 0 && strlen($email) > 0 && strlen($gorputza) > 0 && is_numeric($id) && $id > 0) {
+        // Validación: Solo necesitamos confirmar que el ID es válido
+        if (is_numeric($id) && $id > 0) {
 
-            $mezua = new Mezua();
-            $mezua->setId($id);
-            $mezua->setIzena($izena);
-            $mezua->setAbizena($abizena);
-            $mezua->setEmail($email);
-            $mezua->setGorputza($gorputza);
-            $mezua->setErantzuna($erantzuna);
-            // La fecha (sortze_data) no la solemos cambiar al editar, la dejamos igual o no la tocamos en el update.
+            // 1. Recuperamos el mensaje original de la base de datos
+            $mezua = MezuaDB::selectMezua($id);
 
-            if (MezuaDB::updateMezua($mezua) > 0) {
-                $alerta = "Mezua ondo eguneratu da.";
-                
-                // Cargamos la vista de éxito
-                include('mezua_gorde_da.php');
+            // Si el mensaje existe en la base de datos...
+            if ($mezua) {
+                // 2. Modificamos ÚNICAMENTE la respuesta
+                $mezua->setErantzuna($erantzuna);
+
+                // 3. Enviamos a actualizar
+                if (MezuaDB::updateMezua($mezua) > 0) {
+                    $alerta = "Mezua ondo eguneratu da.";
+                    
+                    // Preparamos las variables para que la vista de éxito no dé errores
+                    $izena = $mezua->getIzena();
+                    $abizena = $mezua->getAbizena();
+                    $email = $mezua->getEmail();
+                    $gorputza = $mezua->getGorputza();
+
+                    // Cargamos la vista de éxito
+                    include('mezua_gorde_da.php');
+                } else {
+                    $alerta = "Mezua ez da gorde (edo ez duzu ezer aldatu).";
+                    
+                    // Preparamos las variables por si la vista de error también las usa
+                    $izena = $mezua->getIzena();
+                    $abizena = $mezua->getAbizena();
+                    $email = $mezua->getEmail();
+                    $gorputza = $mezua->getGorputza();
+
+                    include('mezua_ez_da_gorde.php');
+                }
             } else {
-                $alerta = "Mezua ez da gorde (edo ez duzu ezer aldatu).";
-                include('mezua_ez_da_gorde.php');
+                // Si alguien manda un ID que no existe en la BD
+                $alerta = "* Errorea: Mezua ez da aurkitu *";
+                include('mezu_aldatu.php');
             }
+
         } else {
-            $alerta = "* Eremu guztiak bete behar dira *";
+            $alerta = "* ID baliogabea *";
             include('mezu_aldatu.php');
         }
 
